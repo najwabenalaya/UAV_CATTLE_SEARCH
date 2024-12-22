@@ -1,3 +1,4 @@
+
 import networkx as nx
 import matplotlib.pyplot as plt
 from netgraph import Graph
@@ -9,7 +10,6 @@ def highlight_cell(x, y, ax=None, **kwargs):
     ax.add_patch(rect)
     return rect
 
-
 def pos_to_index(x, y, SIZE_X):
     return x + y * SIZE_X + 1
 
@@ -18,14 +18,11 @@ def index_to_pos(idx, SIZE_X):
     y = (idx - 1) // SIZE_X
     return x, y
 
-
 def plot_trajectory(dir_name, trajectory, SIZE_X, SIZE_Y, prob_map=None):
-
     plt.figure(figsize=(14, 14))
     for x in range(SIZE_X):
         for y in range(SIZE_Y):
             highlight_cell(x, y, fill=False, edgecolor='black', linewidth=0.5)
-
 
     G = nx.DiGraph()
     all_nodes = [pos_to_index(x, y, SIZE_X) for x in range(SIZE_X) for y in range(SIZE_Y)]
@@ -49,11 +46,12 @@ def plot_trajectory(dir_name, trajectory, SIZE_X, SIZE_Y, prob_map=None):
     if len(trajectory) > 1:
         last_node = trajectory[-1]
         if last_node in node_colors:
-            node_colors[last_node] = 'black'
+            node_colors[last_node] = 'red'
 
+    # Since we are indexing from top-left, set origin='upper' to match
     if prob_map is not None:
-        plt.imshow(prob_map, cmap="plasma", origin='lower',
-                   extent=(-0.5, SIZE_X - 0.5, -0.5, SIZE_Y - 0.5))
+        plt.imshow(prob_map, cmap="plasma", origin='upper',
+                   extent=(-0.5, SIZE_X - 0.5, SIZE_Y - 0.5, -0.5))
 
     node_labels = {}
     for n in nodes_in_G:
@@ -67,13 +65,13 @@ def plot_trajectory(dir_name, trajectory, SIZE_X, SIZE_Y, prob_map=None):
     Graph(
         G,
         node_layout=node_position,
-        edge_layout='curved', edge_layout_kwargs=dict(k=20),
+        edge_layout='curved', edge_layout_kwargs=dict(k=0.1),
         origin=(0,0), scale=(SIZE_X,SIZE_Y),
         node_size=25,
         node_shape='o',
         node_edge_color='black',
         node_edge_width=3,
-        node_color=node_colors,   # dictionary: node -> color
+        node_color=node_colors,
         edge_color='white',
         edge_width=4,
         node_label_offset=(0, 0),
@@ -95,8 +93,3 @@ def plot_trajectory(dir_name, trajectory, SIZE_X, SIZE_Y, prob_map=None):
     plt.savefig(dir_name + "/fig-optimal-path.pdf", bbox_inches='tight')
     plt.savefig(dir_name + "/fig-optimal-path.png", bbox_inches='tight')
     plt.show()
-
-
-
-
-
