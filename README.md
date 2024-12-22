@@ -5,10 +5,11 @@
 - The paper: https://ieeexplore.ieee.org/document/9963839
 - The authors: Najoua Benalaya,  Ichrak Amdouni, Cedric Adjih, Anis Laouiti, Leila Saidane
 - Three MILP were developed to solve three instances of the problem
+- This project is conducted in a collaboration Between Telecom SudParis (TSP) and  
 
 # License Requirement:
 Gurobi license is required to run our implmentation:
-Link:https://www.gurobi.com/academia/academic-program-and-licenses/?gad_source=1&gclid=Cj0KCQiAvP-6BhDyARIsAJ3uv7Y5TjlriRlay88wyPwjWnrvo7DVFER2K_nue6JItohRK4ZJqAcMU0MaAiuvEALw_wcB
+As a student or staff member of an academic institution you qualify for a free, full product license. For more information, see:https://www.gurobi.com/academia/academic-program-and-licenses/?gad_source=1&gclid=Cj0KCQiAvP-6BhDyARIsAJ3uv7Y5TjlriRlay88wyPwjWnrvo7DVFER2K_nue6JItohRK4ZJqAcMU0MaAiuvEALw_wcB
 
 # Running the UCS-ST (Stationary target):
 python stationary_target.py --x-size 6 --y-size 6 --hover-time 1 --uniform-poc --nb-poc  3  --speed 1 --seed 1 
