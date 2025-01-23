@@ -29,8 +29,8 @@ import pprint
 M = 10
 DEFAULT_SIZE_X = 1
 DEFAULT_SIZE_Y = 3
-DEFAULT_SEED = 1
-DEFAULT_max_TIME = 6
+DEFAULT_SEED = 133
+DEFAULT_max_TIME = 9
 DEFAULT_SPEED = 10
 DEFAULT_INITIAL_DRONE_X = None
 DEFAULT_INITIAL_DRONE_Y = None
@@ -386,11 +386,8 @@ for j in set_J:
 
 objective = sum(w[j,t] * t for t in time_horizon for j in set_J )
 detection = sum(w.values())
-m.setObjective(objective, GRB.MINIMIZE)
-
-# m.setObjective(detection, GRB.MAXIMIZE)
-# m.addConstr(detection >= 0.85)
-
+m.setObjective(detection - 0.13*objective, GRB.MAXIMIZE)
+#m.setObjective(detection , GRB.MAXIMIZE)
 ############################################# constrained path
 for j in set_J:
     for t in time_horizon[:-1]:
