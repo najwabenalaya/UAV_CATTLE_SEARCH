@@ -335,7 +335,7 @@ def plot_trajectory(dir_name, trajectory, SIZE_X, SIZE_Y, prob_map=None):
         x, y = index_to_pos(n, SIZE_X)
         if prob_map is not None:
             p = prob_map[y, x]
-            node_labels[n] = f"{n}\np={p:.1f}"
+            node_labels[n] = f"{n}\np={p:.2f}"
         else:
             node_labels[n] = f"{n}"
 
@@ -366,7 +366,7 @@ def plot_trajectory(dir_name, trajectory, SIZE_X, SIZE_Y, prob_map=None):
             text_color = 'black'
 
         plt.text(x, y, text, color=text_color, ha='center', va='center',
-                 fontsize=15)
+                 fontsize=12)
 
     plt.savefig(dir_name + "/fig-optimal-path.pdf", bbox_inches='tight')
     plt.savefig(dir_name + "/fig-optimal-path.png", bbox_inches='tight')

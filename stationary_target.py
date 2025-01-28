@@ -441,7 +441,7 @@ M = 100
 DEFAULT_SIZE_X = 3
 DEFAULT_SIZE_Y = 3
 DEFAULT_SEED = 1
-DEFAULT_HOVER_TIME = 5
+DEFAULT_HOVER_TIME = 1
 DEFAULT_SPEED = 1
 
 prefix = "ucsst"
@@ -560,11 +560,15 @@ set_Y = range(1, SIZE_Y+1)
 def pos_to_index(x,y):
     # (x,y) with y=0 is bottom row, x=0 is left column
     # Node numbering: start from bottom-left corner, go left to right, then up.
-    return x + y*SIZE_X + 1
+    #return x + y*SIZE_X + 1
+    return x + y * SIZE_X + 1
 
 def index_to_pos(idx):
     # Reverse of pos_to_index
-    return ( (idx-1) % SIZE_X, (idx-1) // SIZE_X )
+    #return ( (idx-1) % SIZE_X, (idx-1) // SIZE_X )
+    x = (idx - 1) % SIZE_X
+    y = (idx - 1) // SIZE_X
+    return x, y
 
 set_V = list(range(1, SIZE_X*SIZE_Y+1))
 start_index = 0
@@ -728,8 +732,8 @@ for x in range(SIZE_X):
 
 node_position = {}
 node_labels = {}
-for y in range(SIZE_Y):
-    for x in range(SIZE_X):
+for x in range(SIZE_X):
+    for y in range(SIZE_Y):
         idx = pos_to_index(x, y)
         node_position[idx] = np.array([x, y])
         prob_value = prob_map[y, x]
@@ -769,12 +773,12 @@ node_colors[last_node]  = "red"
 print("G base")
 Graph(G,
       node_labels=node_labels,
-      edge_label_fontdict=dict(size=5, fontweight='bold'),
+      edge_label_fontdict=dict(size=10, fontweight='bold'),
       node_layout=node_position,
       node_color = node_colors,
       edge_layout='curved',
       edge_layout_kwargs=dict(k=0.1),
-      node_size=18,
+      node_size=20,
       origin=(0,0), scale=(SIZE_X, SIZE_Y),
       edge_color="w",
       edge_alpha=1,
@@ -797,11 +801,11 @@ additional_edge_graph = Graph(
    edge_alpha=1,
    edge_width=3,
    arrows=True,
-   node_size=18,
+   node_size=20,
    origin=(0,0), scale=(SIZE_X, SIZE_Y)
 )
 
-plt.imshow(prob_map, cmap="plasma", origin='lower')
+plt.imshow(prob_map, cmap="plasma", origin='upper')
 print(dir_name + "/fig-optimal-path.pdf")
 plt.savefig(dir_name + "/fig-optimal-path.pdf", bbox_inches='tight')
 plt.savefig(dir_name + "/fig-optimal-path.png", bbox_inches='tight')
